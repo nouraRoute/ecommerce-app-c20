@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppConstants {
+  static const String baseUrl = "https://ecommerce.routemisr.com/api/v1";
   static const String delete = "Delete";
   static const String searchHint = "what do you search for?";
   static const String addToCart = "Add to Cart";
@@ -29,8 +30,8 @@ class AppConstants {
       "imageUrl":
           "https://s3-alpha-sig.figma.com/img/3fcf/e2de/92c1582f45fdca603f959997bfa35cbe?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=QeV-qjdBGetGEiu7uDdauE66Z5yttU6-vWCJ3UP3psaxm8WZyuuchrrkyph01bHIRwwJLn4w28HG5Tsi-UxqVWSbs~yxkZasvbjO93Hu2UN8cKX0XXmSw9Ug7Sm86LB5f2uaqqVk6F~xVr8M8gXfdsNiO8R2VzONaE03OQV~wXhNUSyuFS5s9CPXgtB60Gl8RmAUTKXmFi5V-nxPLjQL6lFYhNcS1-5addo~rCvr4erMQARjSJVdPKHW7eFBycwy7x2r5hRqavDlHfj4wEzzwV6TaQJaOeUN5Q7IvZGKK682CCRBOe6ax2nlf2eQG2vrG33bYxK9DOBKlnHw~p5~qg__",
       "salePrice": "1,500"
-    } ,
-     {
+    },
+    {
       "title": "Nike Air Jordon",
       "finalPrice": "1,200",
       "color": const Color.fromARGB(255, 23, 23, 24),

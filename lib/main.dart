@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/di/di.dart';
 import 'package:ecommerce_app/core/routes_manager/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/routes_manager/route_generator.dart';
 
 void main() {
+  configureDependencies();
   runApp(const MainApp());
 }
 
@@ -18,8 +20,8 @@ class MainApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => MaterialApp(
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
-        home: child,
         onGenerateRoute: RouteGenerator.getRoute,
         initialRoute: Routes.signInRoute,
       ),

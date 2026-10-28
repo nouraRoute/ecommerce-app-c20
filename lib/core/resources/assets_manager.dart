@@ -2,13 +2,13 @@ const String imagePath = "assets/images";
 const String jsonPath = "assets/json";
 const String iconsPath = "assets/icons";
 const String svgPath = "assets/svg_images";
+const String lottyPath = "assets/lotty";
 
 abstract class ImageAssets {
   static const String routeLogo = "$imagePath/splash_logo.png";
   static const String categoryCardImage = "$imagePath/category_card_image.png";
 
-  static const String subcategoryCardImage =
-      "$imagePath/sub_category_card_image.png";
+  static const String subcategoryCardImage = "$imagePath/sub_category_card_image.png";
   static const String carouselSlider1 = "$imagePath/CarouselSlider1.png";
 
   static const String categoryHomeImage = "$imagePath/category_image.jpg";
@@ -25,7 +25,7 @@ abstract class ImageAssets {
   static const String searchIcon = "$imagePath/search.png";
 }
 
-class SvgAssets{
+class SvgAssets {
   static const String routeLogo = "$svgPath/route.svg";
   static const String eye = "$svgPath/Eye.svg";
   static const String edit = "$svgPath/edit (1) 5.svg";
@@ -52,11 +52,14 @@ abstract class IconsAssets {
   static String get icClickedHeart => _icClickedHeart;
 }
 
-
-
 class JsonAssets {
   static const String loading = "$jsonPath/loading.json";
   static const String error = "$jsonPath/error.json";
   static const String empty = "$jsonPath/empty.json";
   static const String success = "$jsonPath/success.json";
+}
+
+class LottyAssets {
+  static const String success = "$lottyPath/success.json";
+  static const String error = "$lottyPath/error.json";
 }

@@ -1,0 +1,18 @@
+import 'package:ecommerce_app/features/auth/domain/entity/user_entity.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'login_request_model.g.dart';
+
+@JsonSerializable()
+class LoginRequestModel {
+  final String email;
+  final String password;
+
+  LoginRequestModel({required this.email, required this.password});
+  factory LoginRequestModel.fromJson(Map<String, dynamic> json) => _$LoginRequestModelFromJson(json);
+  Map<String, dynamic> toJson() => _$LoginRequestModelToJson(this);
+  static LoginRequestModel fromDomain(UserEntity user) {
+    return LoginRequestModel(email: user.email ?? '', password: user.password ?? '');
+  }
+
+  UserEntity toDomain() => UserEntity(email: email, password: password);
+}
