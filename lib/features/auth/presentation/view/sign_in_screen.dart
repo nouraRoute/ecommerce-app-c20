@@ -34,10 +34,10 @@ class _SignInScreenState extends State<SignInScreen> {
       create: (ctx) => getIt<AuthCubit>(),
       child: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
-          if (state is LoginErrorStatus) {
+          if (state.errorMessage != null) {
             AppDialogs.errorDialog(message: state.errorMessage);
           }
-          if (state is LoginSuccessStatus) {
+          if (state.user != null) {
             Navigator.pushNamedAndRemoveUntil(context, Routes.mainRoute, (route) => false);
           }
         },
@@ -115,7 +115,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               // borderRadius: AppSize.s8,
                               isStadiumBorder: false,
                               label: 'Login',
-                              isLoading: state is LoginLoadingStatus,
+                              isLoading: state.isLoading,
                               backgroundColor: ColorManager.white,
                               textStyle: getBoldStyle(color: ColorManager.primary, fontSize: AppSize.s18),
                               onTap: () {
