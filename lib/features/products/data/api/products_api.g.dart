@@ -21,30 +21,12 @@ class _ProductsApi implements ProductsApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<GetProductsResponseModel> getProducts({
-    int? limit,
-    int? page,
-    String? sort,
-    String? fields,
-    String? keyword,
-    String? brand,
-    num? priceGte,
-    num? priceLte,
-    List<String>? categoryIn,
-  }) async {
+  Future<GetProductsResponseModel> getProducts(
+    ProductsRequestModel requestModel,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'limit': limit,
-      r'page': page,
-      r'sort': sort,
-      r'fields': fields,
-      r'keyword': keyword,
-      r'brand': brand,
-      r'price[gte]': priceGte,
-      r'price[lte]': priceLte,
-      r'category[in]': categoryIn,
-    };
-    queryParameters.removeWhere((k, v) => v == null);
+    final queryParameters = <String, dynamic>{};
+    queryParameters.addAll(requestModel.toJson());
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<GetProductsResponseModel>(
