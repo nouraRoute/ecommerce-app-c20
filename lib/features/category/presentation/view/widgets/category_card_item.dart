@@ -8,9 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CategoryCardItem extends StatelessWidget {
   final String title;
   final String image;
-  final Function navigation;
 
-  const CategoryCardItem(this.title, this.image, this.navigation, {super.key});
+  const CategoryCardItem(this.title, this.image, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +31,7 @@ class CategoryCardItem extends StatelessWidget {
             // Overlay with category title and button
             Positioned.fill(
                 child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppPadding.p18, vertical: AppMargin.m8),
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p18, vertical: AppMargin.m8),
               child: Row(
                 children: [
                   Expanded(
@@ -44,9 +42,7 @@ class CategoryCardItem extends StatelessWidget {
                       // Category title
                       Text(
                         title,
-                        style: getBoldStyle(
-                            color: ColorManager.textColor,
-                            fontSize: FontSize.s16.sp),
+                        style: getBoldStyle(color: ColorManager.textColor, fontSize: FontSize.s16.sp),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -58,11 +54,9 @@ class CategoryCardItem extends StatelessWidget {
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
                                 fixedSize: Size(120.w, 30.h),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 5.w, vertical: 0),
+                                padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0),
                                 backgroundColor: ColorManager.primary,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.r))),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r))),
                             child: Text(
                               "Shop Now",
                               style: getRegularStyle(color: ColorManager.white),
