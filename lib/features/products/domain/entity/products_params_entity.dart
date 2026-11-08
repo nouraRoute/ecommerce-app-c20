@@ -30,7 +30,7 @@ class ProductsParamsEntity extends Equatable {
   final List<String>? categoryIn;
 
   const ProductsParamsEntity({
-    this.limit,
+    this.limit = 20,
     this.page,
     this.sort,
     this.fields,

@@ -5,23 +5,23 @@ part 'products_request_model.g.dart';
 /// Query parameters of `GET /products`, sent through Retrofit's `@Queries()` via [toJson].
 @JsonSerializable()
 class ProductsRequestModel {
-  @JsonKey(name: 'limit')
+  @JsonKey(name: 'limit', includeIfNull: false)
   final int? limit;
-  @JsonKey(name: 'page')
+  @JsonKey(name: 'page', includeIfNull: false)
   final int? page;
-  @JsonKey(name: 'sort')
+  @JsonKey(name: 'sort', includeIfNull: false)
   final String? sort;
-  @JsonKey(name: 'fields')
+  @JsonKey(name: 'fields', includeIfNull: false)
   final String? fields;
-  @JsonKey(name: 'keyword')
+  @JsonKey(name: 'keyword', includeIfNull: false)
   final String? keyword;
-  @JsonKey(name: 'brand')
+  @JsonKey(name: 'brand', includeIfNull: false)
   final String? brand;
-  @JsonKey(name: 'price[gte]')
+  @JsonKey(name: 'price[gte]', includeIfNull: false)
   final num? priceGte;
-  @JsonKey(name: 'price[lte]')
+  @JsonKey(name: 'price[lte]', includeIfNull: false)
   final num? priceLte;
-  @JsonKey(name: 'category[in]')
+  @JsonKey(name: 'category[in]', includeIfNull: false)
   final List<String>? categoryIn;
 
   ProductsRequestModel({
@@ -42,14 +42,14 @@ class ProductsRequestModel {
   Map<String, dynamic> toJson() => _$ProductsRequestModelToJson(this)..removeWhere((_, value) => value == null);
 
   static ProductsRequestModel fromDomain(ProductsParamsEntity params) => ProductsRequestModel(
-        limit: params.limit,
-        page: params.page,
-        sort: params.sort,
-        fields: params.fields,
-        keyword: params.keyword,
-        brand: params.brand,
-        priceGte: params.priceGte,
-        priceLte: params.priceLte,
-        categoryIn: params.categoryIn,
-      );
+    limit: params.limit,
+    page: params.page,
+    sort: params.sort,
+    fields: params.fields,
+    keyword: params.keyword,
+    brand: params.brand,
+    priceGte: params.priceGte,
+    priceLte: params.priceLte,
+    categoryIn: params.categoryIn,
+  );
 }

@@ -7,12 +7,14 @@ import 'package:flutter/material.dart';
 class SubCategoryItem extends StatelessWidget {
   final String title;
   final String image;
-  const SubCategoryItem(this.title, this.image, {super.key});
+  final String subCategoryId;
+  final String categoryId;
+  const SubCategoryItem(this.title, this.image, {super.key, required this.subCategoryId, required this.categoryId});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, Routes.productsScreenRoute),
+      onTap: () => Navigator.pushNamed(context, Routes.productsScreenRoute, arguments: [subCategoryId, categoryId]),
       overlayColor: WidgetStateProperty.all(Colors.transparent),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -21,14 +23,12 @@ class SubCategoryItem extends StatelessWidget {
             aspectRatio: 1,
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(AppSize.s12),
-                  border: Border.all(color: ColorManager.primary, width: 2)),
+                borderRadius: BorderRadius.circular(AppSize.s12),
+                border: Border.all(color: ColorManager.primary, width: 2),
+              ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(AppSize.s10),
-                child: Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                ),
+                child: Image.asset(image, fit: BoxFit.cover),
               ),
             ),
           ),
@@ -37,7 +37,7 @@ class SubCategoryItem extends StatelessWidget {
             style: getRegularStyle(color: ColorManager.primary),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-          )
+          ),
         ],
       ),
     );

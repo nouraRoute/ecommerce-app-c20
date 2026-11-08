@@ -7,21 +7,21 @@ part of 'register_request_model.dart';
 // **************************************************************************
 
 RegisterRequestModel _$RegisterRequestModelFromJson(
-        Map<String, dynamic> json) =>
-    RegisterRequestModel(
-      name: json['name'] as String,
-      email: json['email'] as String,
-      password: json['password'] as String,
-      rePassword: json['rePassword'] as String,
-      phone: json['phone'] as String,
-    );
+  Map<String, dynamic> json,
+) => RegisterRequestModel(
+  name: json['name'] as String,
+  email: json['email'] as String,
+  password: json['password'] as String,
+  rePassword: json['rePassword'] as String,
+  phone: json['phone'] as String,
+);
 
 Map<String, dynamic> _$RegisterRequestModelToJson(
-        RegisterRequestModel instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'email': instance.email,
-      'password': instance.password,
-      'rePassword': instance.rePassword,
-      'phone': instance.phone,
-    };
+  RegisterRequestModel instance,
+) => <String, dynamic>{
+  'name': instance.name,
+  'email': instance.email,
+  'password': instance.password,
+  'rePassword': instance.rePassword,
+  'phone': instance.phone,
+};

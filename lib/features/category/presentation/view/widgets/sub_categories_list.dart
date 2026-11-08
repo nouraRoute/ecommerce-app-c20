@@ -20,18 +20,12 @@ class SubCategoriesList extends StatelessWidget {
       child: BlocBuilder<CategoryCubit, CategoryState>(
         builder: (context, state) {
           if (state.isCategoryLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           } else if (state.categoryErrorMessage != null) {
-            return Center(
-              child: Text(state.categoryErrorMessage!),
-            );
+            return Center(child: Text(state.categoryErrorMessage!));
           } else {
             if ((state.subCategories ?? []).isEmpty) {
-              return const Center(
-                child: Text("No SubCategories Found"),
-              );
+              return const Center(child: Text("No SubCategories Found"));
             } else {
               return CustomScrollView(
                 slivers: <Widget>[
@@ -43,22 +37,27 @@ class SubCategoriesList extends StatelessWidget {
                     ),
                   ),
                   // the category card
-                  SliverToBoxAdapter(
+                  const SliverToBoxAdapter(
                     child: CategoryCardItem("Laptops & Electronics", ImageAssets.categoryCardImage),
                   ),
                   // the grid view of the subcategories
                   SliverGrid(
-                      delegate: SliverChildBuilderDelegate(
-                        childCount: state.subCategories!.length,
-                        (context, index) =>
-                            SubCategoryItem(state.subCategories![index].name ?? '', ImageAssets.categoryCardImage),
+                    delegate: SliverChildBuilderDelegate(
+                      childCount: state.subCategories!.length,
+                      (context, index) => SubCategoryItem(
+                        state.subCategories![index].name ?? '',
+                        ImageAssets.categoryCardImage,
+                        subCategoryId: state.subCategories![index].id!,
+                        categoryId: state.selectedCategory!.id!,
                       ),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        childAspectRatio: 0.75,
-                        mainAxisSpacing: AppSize.s8,
-                        crossAxisSpacing: AppSize.s8,
-                      ))
+                    ),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      childAspectRatio: 0.75,
+                      mainAxisSpacing: AppSize.s8,
+                      crossAxisSpacing: AppSize.s8,
+                    ),
+                  ),
                 ],
               );
             }
