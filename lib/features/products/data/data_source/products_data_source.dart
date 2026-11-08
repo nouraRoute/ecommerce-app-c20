@@ -15,7 +15,6 @@ class ProductsRemoteDataSource implements ProductsDataSource {
 
   @override
   Future<GetProductsResponseModel> getProducts(ProductsRequestModel requestModel) async {
-    print("---->requestModel: ${requestModel.toJson()}");
     return await _productsApi.getProducts(requestModel);
   }
 }

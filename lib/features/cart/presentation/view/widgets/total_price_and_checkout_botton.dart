@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TotalPriceAndCheckoutBotton extends StatelessWidget {
-  const TotalPriceAndCheckoutBotton(
-      {super.key, required this.totalPrice, required this.checkoutButtonOnTap});
-  final int totalPrice;
+  const TotalPriceAndCheckoutBotton({super.key, required this.totalPrice, required this.checkoutButtonOnTap});
+  final double totalPrice;
   final void Function() checkoutButtonOnTap;
   @override
   Widget build(BuildContext context) {
@@ -22,22 +21,16 @@ class TotalPriceAndCheckoutBotton extends StatelessWidget {
               'Total price',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: getMediumStyle(
-                color: ColorManager.textColor.withOpacity(0.6),
-                fontSize: AppSize.s18.sp,
-              ),
+              style: getMediumStyle(color: ColorManager.textColor.withOpacity(0.6), fontSize: AppSize.s18.sp),
             ),
             SizedBox(height: 4.h),
             SizedBox(
               width: 90.w,
               child: Text(
-                'EGP $totalPrice',
+                'EGP ${totalPrice.round()}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: getMediumStyle(
-                  color: ColorManager.textColor,
-                  fontSize: AppSize.s18.sp,
-                ),
+                style: getMediumStyle(color: ColorManager.textColor, fontSize: AppSize.s18.sp),
               ),
             ),
           ],
@@ -49,12 +42,9 @@ class TotalPriceAndCheckoutBotton extends StatelessWidget {
           child: CustomElevatedButton(
             label: 'Check Out',
             onTap: checkoutButtonOnTap,
-            suffixIcon: Icon(
-              Icons.arrow_forward,
-              color: ColorManager.white,
-            ),
+            suffixIcon: Icon(Icons.arrow_forward, color: ColorManager.white),
           ),
-        )
+        ),
       ],
     );
   }

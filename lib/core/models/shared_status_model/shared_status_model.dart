@@ -28,3 +28,10 @@ class ErrorState<T> extends SharedStatusModel<T> {
   @override
   List<Object?> get props => [errorMessage];
 }
+
+class NoParams extends Equatable {
+  const NoParams();
+
+  @override
+  List<Object?> get props => [];
+}

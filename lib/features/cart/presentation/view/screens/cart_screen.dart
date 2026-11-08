@@ -4,7 +4,9 @@ import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
 import 'package:ecommerce_app/core/resources/values_manager.dart';
+import 'package:ecommerce_app/core/utils/dialog_utils.dart';
 import 'package:ecommerce_app/features/cart/domain/entity/cart_entity.dart';
+import 'package:ecommerce_app/features/cart/presentation/view/widgets/cart_icon.dart';
 import 'package:ecommerce_app/features/cart/presentation/view/widgets/cart_item_widget.dart';
 import 'package:ecommerce_app/features/cart/presentation/view/widgets/total_price_and_checkout_botton.dart';
 import 'package:ecommerce_app/features/cart/presentation/view_model/cubit/cart_cubit.dart';
@@ -18,7 +20,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: getIt<CartCubit>()..getCart(),
+      value: getIt<CartCubit>(),
       child: Scaffold(
         appBar: AppBar(
           title: Text('Cart', style: getMediumStyle(fontSize: 20, color: ColorManager.textColor)),
@@ -28,27 +30,34 @@ class CartScreen extends StatelessWidget {
               onPressed: () {},
               icon: ImageIcon(AssetImage(IconsAssets.icSearch), color: ColorManager.primary),
             ),
-            BlocProvider.value(
-              value: getIt<CartCubit>(),
-              child: BlocBuilder<CartCubit, CartState>(
-                builder: (context, state) {
-                  return Badge.count(
-                    padding: const EdgeInsets.all(0),
-                    alignment: const Alignment(.5, -.7),
-                    isLabelVisible: (state.carCount ?? 0) != 0,
-                    count: state.carCount ?? 0,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: ImageIcon(AssetImage(IconsAssets.icCart), color: ColorManager.primary),
-                    ),
-                  );
-                },
-              ),
-            ),
+            const CartWidget(isClickable: false),
           ],
         ),
-        body: BlocBuilder<CartCubit, CartState>(
+        body: BlocConsumer<CartCubit, CartState>(
           builder: (context, state) {
+            if ((state.cartEntity?.items ?? []).isNotEmpty) {
+              return Padding(
+                padding: const EdgeInsets.all(AppPadding.p14),
+                child: Column(
+                  children: [
+                    Expanded(
+                      // the list of cart items ===============
+                      child: ListView.separated(
+                        itemBuilder: (context, index) => CartItemWidget(cartItemEntity: state.cartEntity!.items[index]),
+                        separatorBuilder: (context, index) => SizedBox(height: AppSize.s12.h),
+                        itemCount: state.cartEntity!.items.length,
+                      ),
+                    ),
+                    // the total price and checkout button========
+                    TotalPriceAndCheckoutBotton(
+                      totalPrice: (state.cartEntity!.totalCartPrice ?? 0).toDouble(),
+                      checkoutButtonOnTap: () {},
+                    ),
+                    SizedBox(height: 10.h),
+                  ],
+                ),
+              );
+            }
             switch (state.cartStatus) {
               case null:
               case LoadingState<CartEntity>():
@@ -71,11 +80,26 @@ class CartScreen extends StatelessWidget {
                         ),
                       ),
                       // the total price and checkout button========
-                      TotalPriceAndCheckoutBotton(totalPrice: 1200, checkoutButtonOnTap: () {}),
+                      TotalPriceAndCheckoutBotton(
+                        totalPrice: (cartEntity.totalCartPrice ?? 0).toDouble(),
+                        checkoutButtonOnTap: () {},
+                      ),
                       SizedBox(height: 10.h),
                     ],
                   ),
                 );
+            }
+          },
+          listener: (BuildContext context, CartState state) {
+            switch (state.cartUpdateStatus) {
+              case LoadingState():
+                AppDialogs.loadingDialog();
+                break;
+              case ErrorState():
+                AppDialogs.dismissDialog();
+                AppDialogs.errorDialog(message: (state.cartUpdateStatus as ErrorState).errorMessage);
+              default:
+                AppDialogs.dismissDialog();
             }
           },
         ),

@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/di/di.dart';
 import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/resources/styles_manager.dart';
@@ -6,6 +7,7 @@ import 'package:ecommerce_app/core/routes_manager/routes.dart';
 import 'package:ecommerce_app/core/widget/product_counter.dart';
 import 'package:ecommerce_app/features/cart/domain/entity/cart_item_entity.dart';
 import 'package:ecommerce_app/features/cart/presentation/view/widgets/color_and_size_cart_item.dart';
+import 'package:ecommerce_app/features/cart/presentation/view_model/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -64,7 +66,7 @@ class CartItemWidget extends StatelessWidget {
                           ),
                         ),
                         InkWell(
-                          // onTap: onDeleteTap,
+                          onTap: () => getIt<CartCubit>().removeFromCart(cartItemEntity.product?.id ?? ''),
                           child: Image.asset(IconsAssets.icDelete, color: ColorManager.textColor, height: 22.h),
                         ),
                       ],
@@ -86,7 +88,10 @@ class CartItemWidget extends StatelessWidget {
                             style: getBoldStyle(color: ColorManager.textColor, fontSize: AppSize.s18.sp),
                           ),
                         ),
-                        // ProductCounter(add: onIncrementTap, productCounter: quantity, remove: onDecrementTap),
+                        ProductCounter(
+                          productCounter: cartItemEntity.count ?? 1,
+                          productId: cartItemEntity.product?.id ?? '',
+                        ),
                       ],
                     ),
                   ],

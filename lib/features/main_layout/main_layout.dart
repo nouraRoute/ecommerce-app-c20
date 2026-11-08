@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/di/di.dart';
 import 'package:ecommerce_app/core/resources/assets_manager.dart';
 import 'package:ecommerce_app/core/resources/color_manager.dart';
 import 'package:ecommerce_app/core/widget/home_screen_app_bar.dart';
+import 'package:ecommerce_app/features/cart/presentation/view_model/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/category/presentation/view/categories_tab.dart';
 import 'package:ecommerce_app/features/category/presentation/view_model/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/main_layout/favourite/presentation/favourite_screen.dart';
@@ -20,12 +21,14 @@ class MainLayout extends StatefulWidget {
 
 class _MainLayoutState extends State<MainLayout> {
   int currentIndex = 0;
-  List<Widget> tabs = [
-    const HomeTab(),
-    const CategoriesTab(),
-    const FavouriteScreen(),
-    const ProfileTab(),
-  ];
+  List<Widget> tabs = [const HomeTab(), const CategoriesTab(), const FavouriteScreen(), const ProfileTab()];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getIt<CartCubit>().getCart();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -72,18 +75,18 @@ class CustomBottomNavBarItem extends BottomNavigationBarItem {
   String iconPath;
   String title;
   CustomBottomNavBarItem(this.iconPath, this.title)
-      : super(
-          label: '',
-          icon: ImageIcon(
-            AssetImage(iconPath), // Inactive icon image
-            color: ColorManager.white, // Inactive icon color
+    : super(
+        label: '',
+        icon: ImageIcon(
+          AssetImage(iconPath), // Inactive icon image
+          color: ColorManager.white, // Inactive icon color
+        ),
+        activeIcon: CircleAvatar(
+          backgroundColor: ColorManager.white, // Background of active icon
+          child: ImageIcon(
+            AssetImage(iconPath),
+            color: ColorManager.primary, // Active icon imagecolor: ColorManager.primary, // Active icon color
           ),
-          activeIcon: CircleAvatar(
-            backgroundColor: ColorManager.white, // Background of active icon
-            child: ImageIcon(
-              AssetImage(iconPath),
-              color: ColorManager.primary, // Active icon imagecolor: ColorManager.primary, // Active icon color
-            ),
-          ),
-        );
+        ),
+      );
 }

@@ -8,33 +8,46 @@ import 'package:lottie/lottie.dart';
 
 class AppDialogs {
   static successDialog({String? message}) => _showDialog(message: message ?? "Success", lottyPath: LottyAssets.success);
+
   static errorDialog({String? message}) =>
       _showDialog(message: message ?? "something went wrong", lottyPath: LottyAssets.error);
+  static loadingDialog() {
+    if (navigatorKey.currentContext == null) return;
+
+    showDialog(
+      context: navigatorKey.currentContext!,
+      routeSettings: const RouteSettings(name: '/dialog'),
+
+      barrierDismissible: false,
+      builder: (context) => const Center(child: CircularProgressIndicator()),
+    );
+  }
+
+  static dismissDialog() {
+    // Navigator.of(navigatorKey.currentContext!).pop();
+    Navigator.popUntil(navigatorKey.currentContext!, (route) => !(route.settings.name ?? '').contains('dialog'));
+  }
 
   static _showDialog({required String message, required String lottyPath}) {
     if (navigatorKey.currentContext == null) return;
 
     showDialog(
       context: navigatorKey.currentContext!,
+      routeSettings: const RouteSettings(name: '/dialog'),
+
       builder: (context) => Dialog(
         child: Column(
           spacing: 10.h,
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            LottieBuilder.asset(
-              lottyPath,
-              height: 200.h,
-              fit: BoxFit.fill,
-            ),
+            LottieBuilder.asset(lottyPath, height: 200.h, fit: BoxFit.fill),
             Text(
               message,
               style: getMediumStyle(color: ColorManager.textColor, fontSize: 25.sp),
               textAlign: TextAlign.center,
             ),
-            SizedBox(
-              height: 20.h,
-            )
+            SizedBox(height: 20.h),
           ],
         ),
       ),
